@@ -25,7 +25,7 @@
 		<ion-card *ngFor="let item of this.subscriptions">
 			<ion-card-content>
 				<ion-grid>
-					<ion-row>
+					<ion-row align-items-center>
 						<ion-col col-2><ion-icon [color]="this.colorForMicroservice(item)" [name]="this.iconForMicroservice(item)"></ion-icon></ion-col>
 						<ion-col col-10>{{ item.caption }}</ion-col>
 					</ion-row>
