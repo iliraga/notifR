@@ -1,0 +1,37 @@
+<!--
+  Generated template for the Home page.
+
+  See http://ionicframework.com/docs/v2/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+	<ion-navbar>
+		<button ion-button menuToggle>
+			<ion-icon name="menu"></ion-icon>
+		</button>
+		<ion-title>notifR</ion-title>
+		<ion-buttons end>
+			<button ion-button icon-only>
+				<ion-icon name="add"></ion-icon>
+			</button>
+		</ion-buttons>
+	</ion-navbar>
+</ion-header>
+
+<ion-content>
+	<ion-list>
+		<ion-list-header>Meine Topics</ion-list-header>
+
+		<ion-card *ngFor="let item of this.subscriptions">
+			<ion-card-content>
+				<ion-grid>
+					<ion-row>
+						<ion-col col-2><ion-icon [color]="this.colorForMicroservice(item)" [name]="this.iconForMicroservice(item)"></ion-icon></ion-col>
+						<ion-col col-10>{{ item.caption }}</ion-col>
+					</ion-row>
+				</ion-grid>
+			</ion-card-content>
+		</ion-card>
+
+	</ion-list>
+</ion-content>
