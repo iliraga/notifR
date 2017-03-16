@@ -6,4 +6,6 @@ export interface ISubscription {
 	caption: string;
 
 	data: any;
+
+	isValid: boolean;
 }

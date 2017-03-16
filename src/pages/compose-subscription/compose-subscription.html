@@ -12,9 +12,9 @@
 
 
 <ion-content padding>
-	<bands-configurator></bands-configurator>
+	<bands-configurator [subscription]="this.subscription"></bands-configurator>
 
-	<button ion-button margin-bottom margin-top icon-left block large (click)="this.save()">
+	<button ion-button margin-bottom margin-top icon-left block large (click)="this.save()" [disabled]="!this.subscription.isValid">
 		<ion-icon name="notifications"></ion-icon>
 		Erstellen
 	</button>

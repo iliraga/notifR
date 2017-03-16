@@ -26,6 +26,14 @@ export class Subscriptions {
 		return subscription;
 	}
 
+	public forConnector(connectorIdentifier: string): ISubscription {
+		let subscription: ISubscription = new Subscription();
+
+		subscription.connectorId = connectorIdentifier;
+
+		return subscription;
+	}
+
 	public mine(): Promise<Array<ISubscription>> {
 		let subscriptions: Array<ISubscription> = [];
 

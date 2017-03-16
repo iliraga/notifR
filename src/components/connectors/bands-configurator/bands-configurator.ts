@@ -1,4 +1,5 @@
 import {Component} from '@angular/core';
+import {ISubscription} from "../../../interfaces/subscription.interface";
 
 /*
  Generated class for the BandsConfigurator component.
@@ -8,15 +9,18 @@ import {Component} from '@angular/core';
  */
 @Component({
 	selector: 'bands-configurator',
-	templateUrl: 'bands-configurator.html'
+	templateUrl: 'bands-configurator.html',
+	inputs: ['subscription']
 })
 export class BandsConfiguratorComponent {
 
-	text: string;
+	/**
+	 * Subscription which will be extended through this component
+	 * @type {any}
+	 */
+	public subscription: ISubscription = null;
 
 	constructor() {
 		console.log('Hello BandsConfigurator Component');
-		this.text = 'Hello World';
 	}
-
 }

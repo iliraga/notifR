@@ -1,6 +1,8 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {IConnector} from "../../interfaces/connector.interface";
+import {ISubscription} from "../../interfaces/subscription.interface";
+import {Subscriptions} from "../../providers/subscriptions";
 
 /*
  Generated class for the ComposeSubscription page.
@@ -14,9 +16,13 @@ import {IConnector} from "../../interfaces/connector.interface";
 })
 export class ComposeSubscriptionPage {
 	public connector: IConnector = null;
+	public subscription: ISubscription = null;
 
-	constructor(private navCtrl: NavController, private navParams: NavParams) {
+	constructor(private navCtrl: NavController,
+				private navParams: NavParams,
+				private subscriptionService: Subscriptions) {
 		this.connector = this.navParams.get('connector');
+		this.subscription = this.subscriptionService.forConnector(this.connector.id);
 	}
 
 	ionViewDidLoad() {

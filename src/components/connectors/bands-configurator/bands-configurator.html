@@ -11,16 +11,16 @@
 
 	<ion-item>
 		<ion-icon name="person" item-left></ion-icon>
-		<ion-input placeholder="Künstler oder Band" type="text" value=""></ion-input>
+		<ion-input placeholder="Künstler oder Band" type="text" value="" [ngModel]="this.subscription.data.band"></ion-input>
 	</ion-item>
 
 	<ion-item>
 		<ion-icon name="flag" item-left></ion-icon>
 		<ion-label>Land</ion-label>
-		<ion-select [(ngModel)]="gaming">
-			<ion-option value="nes">Schweiz</ion-option>
-			<ion-option value="n64">Deutschland</ion-option>
-			<ion-option value="ps">Österreich</ion-option>
+		<ion-select [(ngModel)]="this.subscription.data.country">
+			<ion-option value="ch">Schweiz</ion-option>
+			<ion-option value="de">Deutschland</ion-option>
+			<ion-option value="au">Österreich</ion-option>
 		</ion-select>
 	</ion-item>
 
