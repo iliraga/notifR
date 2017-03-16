@@ -11,7 +11,7 @@
 		</button>
 		<ion-title>notifR</ion-title>
 		<ion-buttons end>
-			<button ion-button icon-only>
+			<button ion-button icon-only (click)="this.composeSubscription()">
 				<ion-icon name="add"></ion-icon>
 			</button>
 		</ion-buttons>
@@ -32,6 +32,10 @@
 				</ion-grid>
 			</ion-card-content>
 		</ion-card>
-
 	</ion-list>
+
+	<div padding *ngIf="this.subscriptions.length === 0">
+		Noch keine Subscriptions hinzugefügt.
+	</div>
+
 </ion-content>

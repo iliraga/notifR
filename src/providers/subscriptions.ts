@@ -26,7 +26,7 @@ export class Subscriptions {
 		return subscription;
 	}
 
-	public dummySubscriptions(): Array<ISubscription> {
+	public mine(): Promise<Array<ISubscription>> {
 		let subscriptions: Array<ISubscription> = [];
 
 		subscriptions.push(this.emptySubscription("Zeige mir alle Tore von FC Bayern", "football"));
@@ -37,6 +37,6 @@ export class Subscriptions {
 		subscriptions.push(this.emptySubscription("Wenn ein Selena Gomez Konzert in der Nähe ist", "bands"));
 		subscriptions.push(this.emptySubscription("Wenn ein Louis Richi Müller Konzert in der Nähe ist", "bands"));
 
-		return subscriptions;
+		return Promise.resolve(subscriptions);
 	}
 }

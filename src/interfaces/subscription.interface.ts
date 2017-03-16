@@ -4,4 +4,6 @@ export interface ISubscription {
 	connectorId: string;
 
 	caption: string;
+
+	data: any;
 }

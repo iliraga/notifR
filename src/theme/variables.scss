@@ -25,7 +25,7 @@ $colors: (
 		danger: #f53d3d,
 		light: #FFEABE,
 		light2: #B9D2ED,
-		dark: #222,
+		dark: #4A4A4A,
 
 		connector-football: #27ae60,
 		connector-weather: #f39c12,
@@ -38,6 +38,9 @@ $toolbar-ios-button-color: $toolbar-ios-title-text-color;
 
 $toolbar-background: color($colors, primary);
 $menu-ios-background: $toolbar-background;
+
+$text-color: color($colors, dark);
+
 
 // App iOS Variables
 // --------------------------------------------------

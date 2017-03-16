@@ -1,7 +1,9 @@
 import {Component} from '@angular/core';
 import {NavController, NavParams} from 'ionic-angular';
 import {Subscriptions} from "../../providers/subscriptions";
+import {ConnectorRenderingHelper} from "../../providers/connector-rendering-helper";
 import {ISubscription} from "../../interfaces/subscription.interface";
+import {ConnectorSelectionPage} from "../connector-selection/connector-selection";
 
 /*
  Generated class for the Subscriptions page.
@@ -18,28 +20,27 @@ export class SubscriptionsPage {
 
 	constructor(private navCtrl: NavController,
 				private navParams: NavParams,
-				private subscriptionService: Subscriptions) {
-		this.subscriptions = this.subscriptionService.dummySubscriptions();
+				private subscriptionService: Subscriptions,
+				private connectorRendering: ConnectorRenderingHelper) {
+		// fetch my subscriptions
+		this.subscriptionService.mine().then((subscriptions: Array<ISubscription>) => {
+			this.subscriptions = subscriptions;
+		});
 	}
 
 	ionViewDidLoad() {
 		console.log('ionViewDidLoad SubscriptionsPage');
 	}
 
+	public composeSubscription(): void {
+		this.navCtrl.push(ConnectorSelectionPage, {});
+	}
+
 	public colorForMicroservice(subscription: ISubscription): string {
-		return 'connector-' + subscription.connectorId;
+		return this.connectorRendering.color(subscription.connectorId);
 	}
 
 	public iconForMicroservice(subscription: ISubscription): string {
-		switch (subscription.connectorId) {
-			case 'weather':
-				return 'rainy';
-			case 'bands':
-				return 'musical-notes';
-			case 'tv':
-				return 'desktop';
-		}
-
-		return subscription.connectorId;
+		return this.connectorRendering.icon(subscription.connectorId);
 	}
 }

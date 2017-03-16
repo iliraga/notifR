@@ -1,0 +1,30 @@
+<!--
+  Generated template for the BandsConfigurator component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-list>
+	<ion-list-header>
+		Bandauswahl
+	</ion-list-header>
+
+	<ion-item>
+		<ion-icon name="person" item-left></ion-icon>
+		<ion-input placeholder="Künstler oder Band" type="text" value=""></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-icon name="flag" item-left></ion-icon>
+		<ion-label>Land</ion-label>
+		<ion-select [(ngModel)]="gaming">
+			<ion-option value="nes">Schweiz</ion-option>
+			<ion-option value="n64">Deutschland</ion-option>
+			<ion-option value="ps">Österreich</ion-option>
+		</ion-select>
+	</ion-item>
+
+</ion-list>
+<p text-center>
+	Du wirst von mir benachrichtigt, wenn der gewählte Künstler ein Konzert im von dir gewählten Land gibt.
+</p>
