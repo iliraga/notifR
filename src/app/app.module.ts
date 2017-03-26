@@ -10,6 +10,9 @@ import {ConnectorSelectionPage} from "../pages/connector-selection/connector-sel
 import {ConnectorRenderingHelper} from "../providers/connector-rendering-helper";
 import {ComposeSubscriptionPage} from "../pages/compose-subscription/compose-subscription";
 import {BandsConfiguratorComponent} from "../components/connectors/bands-configurator/bands-configurator";
+import {Push} from "@ionic-native/push";
+import {Users} from "../providers/users";
+import {NotificationService} from "../providers/notification-service";
 
 @NgModule({
 	declarations: [
@@ -39,6 +42,9 @@ import {BandsConfiguratorComponent} from "../components/connectors/bands-configu
 	providers: [
 		Subscriptions,
 		ConnectorRenderingHelper,
+		Push,
+		Users,
+		NotificationService,
 		{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {
