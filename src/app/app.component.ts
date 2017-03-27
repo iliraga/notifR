@@ -37,7 +37,7 @@ export class MyApp {
 
 	private initializeApp(): void {
 		this.platform.ready().then(() => {
-			this.initializeUser();
+			// this.initializeUser();
 		});
 	}
 

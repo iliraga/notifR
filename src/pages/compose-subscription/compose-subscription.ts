@@ -30,5 +30,7 @@ export class ComposeSubscriptionPage {
 	}
 
 	public save(): void {
+		this.subscriptionService.add(this.subscription);
+		this.navCtrl.popToRoot();
 	}
 }

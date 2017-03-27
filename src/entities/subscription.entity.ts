@@ -5,6 +5,5 @@ export class Subscription implements ISubscription {
 	public connectorId: string;
 	public caption: string;
 	public data: any;
-
-	public isValid: boolean;
+	public isValid: boolean = false;
 }

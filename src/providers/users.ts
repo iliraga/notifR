@@ -91,12 +91,12 @@ export class Users {
 
 		let properties: any = {};
 
-		properties.pushtoken = pushToken;
-		properties.os = this.deviceType;
+		properties.identifier = pushToken;
+		properties.device_type = this.deviceType;
 
 		return new Promise((resolve, reject) => {
 			// go through the angularJS http interface to store stuff on webservice
-			this.http.post(Constants.API_URI + 'users', JSON.stringify(properties), {headers: headers})
+			this.http.post(Constants.API_URI + 'users/', JSON.stringify(properties), {headers: headers})
 			.map(res => res.json())
 			.subscribe(
 				// successfully fetched the data
