@@ -1,8 +1,18 @@
 import {Injectable} from '@angular/core';
-import {Http} from '@angular/http';
+import {Http, Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {ISubscription} from "../interfaces/subscription.interface";
 import {Subscription} from "../entities/subscription.entity";
+import {Observable} from "rxjs/Observable";
+import {Constants} from "../app/app.constants";
+import {Users} from "./users";
+
+interface ISubscriptionPayload {
+	connector: string;
+	userid: string;
+	message: string;
+	data: any;
+}
 
 /*
  Generated class for the Subscriptions provider.
@@ -15,7 +25,8 @@ export class Subscriptions {
 
 	private subscriptions: Array<ISubscription> = [];
 
-	constructor(public http: Http) {
+	constructor(private http: Http,
+				private users: Users) {
 		console.log('Hello Subscriptions Provider');
 
 		let subscriptions: Array<ISubscription> = [];
@@ -53,7 +64,39 @@ export class Subscriptions {
 		this.subscriptions.push(subscription);
 	}
 
+	public save(subscription: ISubscription): Promise<ISubscription> {
+		let url: string = Constants.API_URI + 'users/' + this.users.participantId + '/subscriptions';
+		let payload: ISubscriptionPayload = this.mapSubscription(subscription);
+
+		return new Promise<ISubscription>((resolve, reject) => {
+			this.http.post(url, payload)
+			.map((response: Response) => response.headers)
+			.map((headers: Headers) => headers.get('location'))
+			.map((location: string) => location.replace('/api/subscriptions/', ''))
+			.map((id: string) => {
+				subscription.id = id;
+
+				this.subscriptions.push(subscription);
+
+				return subscription;
+			})
+			.subscribe(
+				(subscription: ISubscription) => resolve(subscription),
+				(error: Error) => reject(error)
+			);
+		});
+	}
+
 	public mine(): Promise<Array<ISubscription>> {
 		return Promise.resolve(this.subscriptions);
+	}
+
+	private mapSubscription(subscription: ISubscription): ISubscriptionPayload {
+		return {
+			userid: this.users.participantId,
+			connector: subscription.connectorId,
+			message: subscription.caption,
+			data: subscription.data
+		};
 	}
 }
