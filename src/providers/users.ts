@@ -107,6 +107,8 @@ export class Users {
 			.subscribe(
 				// successfully fetched the data
 				(userId: string) => {
+					// getting data in location header like this:
+					// /api/users/58d8f55bb796b600087bad9a
 					// store the id into local storage to have further access on it
 					this.participantId = userId;
 
