@@ -9,6 +9,12 @@ import {SubscriptionsPage} from "../pages/subscriptions/subscriptions";
 import {NotificationService} from "../providers/notification-service";
 import {Users} from "../providers/users";
 
+interface INavigationPage {
+	title: string;
+	component: Component;
+	icon: string;
+}
+
 
 @Component({
 	templateUrl: 'app.html'
@@ -18,7 +24,7 @@ export class MyApp {
 	@ViewChild(Nav) nav: Nav;
 
 	public rootPage: any = SubscriptionsPage;
-	public pages: Array<{title: string, component: any, icon: string}>;
+	public pages: Array<INavigationPage>;
 
 	constructor(private platform: Platform,
 				private notifications: NotificationService,
@@ -32,26 +38,44 @@ export class MyApp {
 			{title: 'Meine Topics', component: Page1, icon: 'body'},
 			{title: 'Über notifR', component: Page1, icon: 'information-circle'}
 		];
-
 	}
 
+	/**
+	 * Initializes application
+	 */
 	private initializeApp(): void {
-		this.platform.ready().then(() => {
-			// this.initializeUser();
-		});
+		this.platform.ready().then(() => this.initializeUser());
 	}
 
-	public openPage(page): void {
+	/**
+	 * Opens specified page
+	 * @param page
+	 */
+	public openPage(page: INavigationPage): void {
 		// Reset the content nav to have just this page
 		// we wouldn't want the back button to show in this scenario
-		this.nav.setRoot(page.component);
+		this.nav.setRoot(page.component).then(() => console.info('Change page'));
 	}
 
+	/**
+	 * Initializes user
+	 */
 	private initializeUser(): void {
-		this.notifications.fetchToken().then((token: string) => {
+		this.notifications.fetchToken()
+		.then((token: string) => this.createUser(token))
+		.then(() => console.log('User was created'));
+	}
+
+	/**
+	 * Creates user through service
+	 * @param token
+	 * @returns {any}
+	 */
+	private createUser(token: string): Promise<any> {
+		if (!this.users.userRegistered) {
 			return this.users.createUser(token);
-		}).then(() => {
-			console.log('User was created');
-		});
+		} else {
+			return Promise.resolve(true);
+		}
 	}
 }

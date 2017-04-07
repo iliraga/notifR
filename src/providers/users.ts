@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Http, Headers} from '@angular/http';
+import {Http, Headers, Response} from '@angular/http';
 import {Platform} from 'ionic-angular';
 import 'rxjs/add/operator/map';
 import {Constants} from "../app/app.constants";
@@ -84,34 +84,37 @@ export class Users {
 	 * @param values
 	 * @returns {Promise<T>|Promise}
 	 */
-	createUser(pushToken: string): Promise<any> {
-		let headers = new Headers({
-			'Content-Type': 'application/json'
-		});
-
-		let properties: any = {};
-
-		properties.identifier = pushToken;
-		properties.device_type = this.deviceType;
+	public createUser(pushToken: string): Promise<string> {
+		let properties: { identifier: string, device_type: number } = {
+			identifier: pushToken,
+			device_type: this.deviceType
+		};
 
 		return new Promise((resolve, reject) => {
 			// go through the angularJS http interface to store stuff on webservice
-			this.http.post(Constants.API_URI + 'users/', JSON.stringify(properties), {headers: headers})
-			.map(res => res.json())
+			this.http.post(Constants.API_URI + 'users/', properties)
+			.map((response: Response) => {
+				console.log(response.url);
+				console.log(response.status);
+				console.log(response.statusText);
+				console.log(response.headers.keys());
+				console.log(response.headers.values());
+
+
+				return response.headers.get('location');
+			})
+			.map((location: string) => location.replace('/api/users/', ''))
 			.subscribe(
 				// successfully fetched the data
-				data => {
+				(userId: string) => {
 					// store the id into local storage to have further access on it
-					this.participantId = data.id;
-					this.participantName = data.userId;
-
-					console.log(data);
+					this.participantId = userId;
 
 					// resolve the promise
-					resolve(data);
+					resolve(userId);
 				},
 				// handle any errors in this pipe
-				error => {
+				(error: Error) => {
 					reject(error);
 				}
 			);

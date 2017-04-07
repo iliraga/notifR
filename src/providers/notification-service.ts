@@ -65,7 +65,7 @@ export class NotificationService {
 	 * @returns {string}
 	 */
 	private getEmulatorToken(): string {
-		return "SIMULATOR_TOKEN_123123";
+		return "SIMULATOR_TOKEN";
 	}
 
 	/**
