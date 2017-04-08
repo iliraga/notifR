@@ -98,8 +98,20 @@ export class Subscriptions {
 
 		return new Promise<Array<ISubscription>>((resolve, reject) => {
 			this.http.get(url)
+			.map((response: Response) => {
+				console.log(response);
+
+				return response;
+			})
 			.map((response: Response) => response.json())
+			.map((entities: any) => entities.data)
 			.map((entities: Array<ISubscriptionPayload>) => entities.map((raw: ISubscriptionPayload) => this.deserialize(raw)))
+			.map((entities: Array<ISubscription>) => this.subscriptions.concat(entities))
+			.map((entities: Array<ISubscription>) => {
+				this.subscriptions = entities;
+
+				return this.subscriptions;
+			})
 			.subscribe(
 				(subscriptions: Array<ISubscription>) => resolve(subscriptions),
 				(error: Error) => reject(error)
