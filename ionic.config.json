@@ -1,6 +1,12 @@
 {
-  "name": "notifR",
-  "app_id": "",
-  "v2": true,
-  "typescript": true
+	"name": "notifR",
+	"app_id": "",
+	"v2": true,
+	"typescript": true,
+	"proxies": [
+		{
+			"path": "/api",
+			"proxyUrl": "http://160.85.30.211/api/"
+		}
+	]
 }

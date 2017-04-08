@@ -28,20 +28,14 @@ export class Subscriptions {
 	constructor(private http: Http,
 				private users: Users) {
 		console.log('Hello Subscriptions Provider');
-
-		let subscriptions: Array<ISubscription> = [];
-
-		subscriptions.push(this.emptySubscription("Zeige mir alle Tore von FC Bayern", "football"));
-		subscriptions.push(this.emptySubscription("Zeige mir alle Siege von FC Schaffhausen", "football"));
-		subscriptions.push(this.emptySubscription("Wenn die Temperatur in Schaffhausen um 10 Grad variiert", "weather"));
-		subscriptions.push(this.emptySubscription("Wenn ein Thriller im Free-TV spielt", "tv"));
-		subscriptions.push(this.emptySubscription("Wenn Berlin Tag und Nacht spielt", "tv"));
-		subscriptions.push(this.emptySubscription("Wenn ein Selena Gomez Konzert in der Nähe ist", "bands"));
-		subscriptions.push(this.emptySubscription("Wenn ein Louis Richi Müller Konzert in der Nähe ist", "bands"));
-
-		this.subscriptions = subscriptions;
 	}
 
+	/**
+	 * Gets an empty subscription
+	 * @param caption
+	 * @param connector
+	 * @returns {ISubscription}
+	 */
 	public emptySubscription(caption: string, connector: string): ISubscription {
 		let subscription: ISubscription = new Subscription();
 
@@ -51,6 +45,11 @@ export class Subscriptions {
 		return subscription;
 	}
 
+	/**
+	 * Gets empty subscription for specified connector
+	 * @param connectorIdentifier
+	 * @returns {ISubscription}
+	 */
 	public forConnector(connectorIdentifier: string): ISubscription {
 		let subscription: ISubscription = new Subscription();
 
@@ -60,13 +59,14 @@ export class Subscriptions {
 		return subscription;
 	}
 
-	public add(subscription: ISubscription): void {
-		this.subscriptions.push(subscription);
-	}
-
+	/**
+	 * Persist specified subscription through webservice
+	 * @param subscription
+	 * @returns {Promise<ISubscription>}
+	 */
 	public save(subscription: ISubscription): Promise<ISubscription> {
-		let url: string = Constants.API_URI + 'users/' + this.users.participantId + '/subscriptions';
-		let payload: ISubscriptionPayload = this.mapSubscription(subscription);
+		let url: string = Constants.API_URI + 'subscriptions/';
+		let payload: ISubscriptionPayload = this.serialize(subscription);
 
 		return new Promise<ISubscription>((resolve, reject) => {
 			this.http.post(url, payload)
@@ -74,6 +74,8 @@ export class Subscriptions {
 			.map((headers: Headers) => headers.get('location'))
 			.map((location: string) => location.replace('/api/subscriptions/', ''))
 			.map((id: string) => {
+				console.log('Created subscriptionp with', id);
+
 				subscription.id = id;
 
 				this.subscriptions.push(subscription);
@@ -87,11 +89,44 @@ export class Subscriptions {
 		});
 	}
 
+	/**
+	 * Fetch own subscriptions through webservice
+	 * @returns {Promise<Array<ISubscription>>}
+	 */
 	public mine(): Promise<Array<ISubscription>> {
-		return Promise.resolve(this.subscriptions);
+		let url: string = `${Constants.API_URI}users/${this.users.participantId}/subscriptions/`;
+
+		return new Promise<Array<ISubscription>>((resolve, reject) => {
+			this.http.get(url)
+			.map((response: Response) => response.json())
+			.map((entities: Array<ISubscriptionPayload>) => entities.map((raw: ISubscriptionPayload) => this.deserialize(raw)))
+			.subscribe(
+				(subscriptions: Array<ISubscription>) => resolve(subscriptions),
+				(error: Error) => reject(error)
+			)
+		});
 	}
 
-	private mapSubscription(subscription: ISubscription): ISubscriptionPayload {
+	/**
+	 * Deserializes entity from payload
+	 * @param raw
+	 * @returns {ISubscription}
+	 */
+	private deserialize(raw: ISubscriptionPayload): ISubscription {
+		let subscription: ISubscription = this.forConnector(raw.connector);
+
+		subscription.caption = raw.message;
+		subscription.data = raw.data;
+
+		return subscription;
+	}
+
+	/**
+	 * Serializes entity into payload
+	 * @param subscription
+	 * @returns {{userid: string, connector: string, message: string, data: any}}
+	 */
+	private serialize(subscription: ISubscription): ISubscriptionPayload {
 		return {
 			userid: this.users.participantId,
 			connector: subscription.connectorId,

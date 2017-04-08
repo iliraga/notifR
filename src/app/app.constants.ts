@@ -6,5 +6,5 @@ export class Constants {
 	 * The URL of the webservice
 	 * @type {string}
 	 */
-	public static API_URI: string = "http://160.85.30.211/api/";
+	public static API_URI: string = "api/";
 }
