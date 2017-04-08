@@ -94,7 +94,7 @@ export class Subscriptions {
 	 * @returns {Promise<Array<ISubscription>>}
 	 */
 	public mine(): Promise<Array<ISubscription>> {
-		let url: string = `${Constants.API_URI}users/${this.users.participantId}/subscriptions/`;
+		let url: string = `${Constants.API_URI}users/${this.users.participantId}/subscriptions`;
 
 		return new Promise<Array<ISubscription>>((resolve, reject) => {
 			this.http.get(url)
