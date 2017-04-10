@@ -13,7 +13,6 @@ import {ISubscription} from "../../../interfaces/subscription.interface";
 	inputs: ['subscription']
 })
 export class BandsConfiguratorComponent {
-
 	/**
 	 * Subscription which will be extended through this component
 	 * @type {any}

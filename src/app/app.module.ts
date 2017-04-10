@@ -13,6 +13,7 @@ import {BandsConfiguratorComponent} from "../components/connectors/bands-configu
 import {Push} from "@ionic-native/push";
 import {Users} from "../providers/users";
 import {NotificationService} from "../providers/notification-service";
+import {FootballConfiguratorComponent} from "../components/connectors/football-configurator/football-configurator";
 
 @NgModule({
 	declarations: [
@@ -23,7 +24,8 @@ import {NotificationService} from "../providers/notification-service";
 		ComposeSubscriptionPage,
 		HomePage,
 		SubscriptionsPage,
-		BandsConfiguratorComponent
+		BandsConfiguratorComponent,
+		FootballConfiguratorComponent
 	],
 	imports: [
 		IonicModule.forRoot(MyApp)
@@ -37,6 +39,7 @@ import {NotificationService} from "../providers/notification-service";
 		SubscriptionsPage,
 		ComposeSubscriptionPage,
 		BandsConfiguratorComponent,
+		FootballConfiguratorComponent,
 		HomePage
 	],
 	providers: [

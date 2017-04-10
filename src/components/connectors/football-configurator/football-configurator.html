@@ -1,0 +1,35 @@
+<!--
+  Generated template for the BandsConfigurator component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-list>
+	<ion-list-header>
+		Fussball
+	</ion-list-header>
+
+	<ion-item>
+		<ion-icon name="football" item-left></ion-icon>
+		<ion-input placeholder="Fussballteam (ausgeschrieben)" type="text" value="" [(ngModel)]="this.team"></ion-input>
+	</ion-item>
+
+	<ion-item>
+		<ion-icon name="alarm" item-left></ion-icon>
+		<ion-label>Spielereignisse</ion-label>
+		<ion-toggle [(ngModel)]="this.subscription.data.events"></ion-toggle>
+	</ion-item>
+	<ion-item>
+		<ion-icon name="cube" item-left></ion-icon>
+		<ion-label>Tore</ion-label>
+		<ion-toggle [(ngModel)]="this.subscription.data.goals"></ion-toggle>
+	</ion-item>
+	<ion-item>
+		<ion-icon name="logo-dribbble" item-left></ion-icon>
+		<ion-label>Endergebnisse</ion-label>
+		<ion-toggle [(ngModel)]="this.subscription.data.result"></ion-toggle>
+	</ion-item>
+</ion-list>
+<p text-center>
+	Du wirst von mir benachrichtigt, wenn der gewählte Künstler ein Konzert im von dir gewählten Land gibt.
+</p>
