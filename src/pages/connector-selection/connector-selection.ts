@@ -32,6 +32,8 @@ export class ConnectorSelectionPage {
 	 * @param connector
 	 */
 	public connectorTapped(connector: IConnector): void {
+		if (connector.id !== 'bands') return;
+
 		this.navCtrl.push(ComposeSubscriptionPage, {
 			connector: connector
 		});

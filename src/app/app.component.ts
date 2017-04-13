@@ -8,6 +8,7 @@ import {HomePage} from "../pages/home/home";
 import {SubscriptionsPage} from "../pages/subscriptions/subscriptions";
 import {NotificationService} from "../providers/notification-service";
 import {Users} from "../providers/users";
+import {AboutPage} from "../pages/about/about";
 
 interface INavigationPage {
 	title: string;
@@ -36,7 +37,7 @@ export class MyApp {
 			{title: 'Home', component: this.rootPage, icon: 'home'},
 			{title: 'Benachrichtigungen', component: Page2, icon: 'notifications'},
 			{title: 'Meine Topics', component: Page1, icon: 'body'},
-			{title: 'Über notifR', component: Page1, icon: 'information-circle'}
+			{title: 'Über notifR', component: AboutPage, icon: 'information-circle'}
 		];
 	}
 

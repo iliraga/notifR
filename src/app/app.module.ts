@@ -13,12 +13,14 @@ import {BandsConfiguratorComponent} from "../components/connectors/bands-configu
 import {Push} from "@ionic-native/push";
 import {Users} from "../providers/users";
 import {NotificationService} from "../providers/notification-service";
+import {AboutPage} from "../pages/about/about";
 
 @NgModule({
 	declarations: [
 		MyApp,
 		Page1,
 		Page2,
+		AboutPage,
 		ConnectorSelectionPage,
 		ComposeSubscriptionPage,
 		HomePage,
@@ -33,6 +35,7 @@ import {NotificationService} from "../providers/notification-service";
 		MyApp,
 		Page1,
 		Page2,
+		AboutPage,
 		ConnectorSelectionPage,
 		SubscriptionsPage,
 		ComposeSubscriptionPage,
