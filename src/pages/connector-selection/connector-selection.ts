@@ -32,7 +32,11 @@ export class ConnectorSelectionPage {
 	 * @param connector
 	 */
 	public connectorTapped(connector: IConnector): void {
-		if (connector.id !== 'bands') return;
+		let validConnectors: Array<string> = [
+			'bands', 'football'
+		];
+
+		if (validConnectors.indexOf(connector.id) === -1) return;
 
 		this.navCtrl.push(ComposeSubscriptionPage, {
 			connector: connector

@@ -12,9 +12,13 @@
 
 
 <ion-content padding>
-	<bands-configurator [subscription]="this.subscription"></bands-configurator>
+	<bands-configurator *ngIf="this.subscription.connectorId === 'bands'"
+						[subscription]="this.subscription"></bands-configurator>
+	<football-configurator *ngIf="this.subscription.connectorId === 'football'"
+						   [subscription]="this.subscription"></football-configurator>
 
-	<button ion-button margin-bottom margin-top icon-left block large (click)="this.save()" [disabled]="!this.subscription.isValid">
+	<button ion-button margin-bottom margin-top icon-left block large (click)="this.save()"
+			[disabled]="!this.subscription.isValid">
 		<ion-icon name="notifications"></ion-icon>
 		Erstellen
 	</button>
