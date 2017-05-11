@@ -22,7 +22,6 @@ interface ISubscriptionPayload {
  */
 @Injectable()
 export class Subscriptions {
-
 	private subscriptions: Array<ISubscription> = [];
 
 	constructor(private http: Http,
@@ -37,7 +36,7 @@ export class Subscriptions {
 	 * @returns {ISubscription}
 	 */
 	public emptySubscription(caption: string, connector: string): ISubscription {
-		let subscription: ISubscription = new Subscription();
+		const subscription: ISubscription = new Subscription();
 
 		subscription.caption = caption;
 		subscription.connectorId = connector;
@@ -51,7 +50,7 @@ export class Subscriptions {
 	 * @returns {ISubscription}
 	 */
 	public forConnector(connectorIdentifier: string): ISubscription {
-		let subscription: ISubscription = new Subscription();
+		const subscription: ISubscription = new Subscription();
 
 		subscription.connectorId = connectorIdentifier;
 		subscription.data = {};
@@ -65,8 +64,8 @@ export class Subscriptions {
 	 * @returns {Promise<ISubscription>}
 	 */
 	public save(subscription: ISubscription): Promise<ISubscription> {
-		let url: string = Constants.API_URI + 'subscriptions/';
-		let payload: ISubscriptionPayload = this.serialize(subscription);
+		const url: string = Constants.API_URI + 'subscriptions/';
+		const payload: ISubscriptionPayload = this.serialize(subscription);
 
 		return new Promise<ISubscription>((resolve, reject) => {
 			this.http.post(url, payload)
@@ -94,7 +93,11 @@ export class Subscriptions {
 	 * @returns {Promise<Array<ISubscription>>}
 	 */
 	public mine(): Promise<Array<ISubscription>> {
-		let url: string = `${Constants.API_URI}users/${this.users.participantId}/subscriptions`;
+		const url: string = `${Constants.API_URI}users/${this.users.participantId}/subscriptions`;
+
+		if (this.subscriptions.length > 0) {
+			return Promise.resolve(this.subscriptions);
+		}
 
 		return new Promise<Array<ISubscription>>((resolve, reject) => {
 			this.http.get(url)
@@ -125,7 +128,7 @@ export class Subscriptions {
 	 * @returns {ISubscription}
 	 */
 	private deserialize(raw: ISubscriptionPayload): ISubscription {
-		let subscription: ISubscription = this.forConnector(raw.connector);
+		const subscription: ISubscription = this.forConnector(raw.connector);
 
 		subscription.caption = raw.message;
 		subscription.data = raw.data;

@@ -47,7 +47,7 @@ export class NotificationService {
 			windows: {}
 		};
 
-		let push: PushObject = this.push.init(options);
+		const push: PushObject = this.push.init(options);
 
 		return push;
 	}

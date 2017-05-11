@@ -4,10 +4,7 @@ import {StatusBar, Splashscreen} from 'ionic-native';
 
 import {Page1} from '../pages/page1/page1';
 import {Page2} from '../pages/page2/page2';
-import {HomePage} from "../pages/home/home";
 import {SubscriptionsPage} from "../pages/subscriptions/subscriptions";
-import {NotificationService} from "../providers/notification-service";
-import {Users} from "../providers/users";
 import {AboutPage} from "../pages/about/about";
 
 interface INavigationPage {
@@ -24,12 +21,10 @@ export class MyApp {
 
 	@ViewChild(Nav) nav: Nav;
 
-	public rootPage: any = SubscriptionsPage;
+	public rootPage: Component = SubscriptionsPage;
 	public pages: Array<INavigationPage>;
 
-	constructor(private platform: Platform,
-				private notifications: NotificationService,
-				private users: Users) {
+	constructor(private platform: Platform) {
 		this.initializeApp();
 
 		// used for an example of ngFor and navigation
@@ -45,7 +40,6 @@ export class MyApp {
 	 * Initializes application
 	 */
 	private initializeApp(): void {
-		this.platform.ready().then(() => this.initializeUser());
 	}
 
 	/**
@@ -56,27 +50,5 @@ export class MyApp {
 		// Reset the content nav to have just this page
 		// we wouldn't want the back button to show in this scenario
 		this.nav.setRoot(page.component).then(() => console.info('Change page'));
-	}
-
-	/**
-	 * Initializes user
-	 */
-	private initializeUser(): void {
-		this.notifications.fetchToken()
-		.then((token: string) => this.createUser(token))
-		.then(() => console.log('User was created'));
-	}
-
-	/**
-	 * Creates user through service
-	 * @param token
-	 * @returns {any}
-	 */
-	private createUser(token: string): Promise<any> {
-		if (!this.users.userRegistered) {
-			return this.users.createUser(token);
-		} else {
-			return Promise.resolve(true);
-		}
 	}
 }
