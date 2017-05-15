@@ -18,9 +18,9 @@ import {ConnectorRenderingHelper} from "../../providers/connector-rendering-help
 export class InboxPage {
 	public notifications: Array<INotification> = [];
 
-	constructor(public navCtrl: NavController,
-				private notificationService: Notifications,
+	constructor(private notificationService: Notifications,
 				private connectorRendering: ConnectorRenderingHelper) {
+		this.notificationService.mine().then((notifications: Array<INotification>) => this.notifications = notifications);
 	}
 
 	public colorForMicroservice(notification: INotification): string {
