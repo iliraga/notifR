@@ -39,6 +39,16 @@ export class SubscriptionsPage {
 		this.navCtrl.push(ConnectorSelectionPage, {});
 	}
 
+	/**
+	 * Should delete single subscription
+	 * @param subscription
+	 */
+	public deleteSubscription(subscription: ISubscription): void {
+		console.log('Delete subscription', subscription);
+
+		this.subscriptionService.delete(subscription).then(() => this.loadSubscriptions());
+	}
+
 	public colorForMicroservice(subscription: ISubscription): string {
 		return this.connectorRendering.color(subscription.connectorId);
 	}
@@ -51,6 +61,8 @@ export class SubscriptionsPage {
 	 * Initializes user
 	 */
 	private initializeUser(): void {
+		if (this.users.userRegistered) return;
+
 		this.notifications.fetchToken()
 		.then((token: string) => this.createUser(token))
 		.then(() => this.loadSubscriptions());

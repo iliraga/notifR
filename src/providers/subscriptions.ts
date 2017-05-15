@@ -8,6 +8,7 @@ import {Constants} from "../app/app.constants";
 import {Users} from "./users";
 
 interface ISubscriptionPayload {
+	_id?: string;
 	connector: string;
 	userid: string;
 	message: string;
@@ -56,6 +57,28 @@ export class Subscriptions {
 		subscription.data = {};
 
 		return subscription;
+	}
+
+	/**
+	 * Deletes single subscription and removes it from cached list
+	 * @param subscription
+	 * @returns {Promise<any>}
+	 */
+	public delete(subscription: ISubscription): Promise<Array<ISubscription>> {
+		const url: string = Constants.API_URI + 'subscriptions/' + subscription.id;
+
+		return new Promise<any>((resolve, reject) => {
+			this.http.delete(url)
+			.map((response: Response) => this.subscriptions.filter((item: ISubscription) => item.id !== subscription.id))
+			.subscribe(
+				(subscriptions: Array<ISubscription>) => {
+					this.subscriptions = subscriptions;
+
+					resolve(subscriptions);
+				},
+				(error: Error) => reject(error)
+			)
+		});
 	}
 
 	/**
@@ -132,6 +155,7 @@ export class Subscriptions {
 
 		subscription.caption = raw.message;
 		subscription.data = raw.data;
+		subscription.id = raw._id;
 
 		return subscription;
 	}
