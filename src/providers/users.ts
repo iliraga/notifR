@@ -85,7 +85,7 @@ export class Users {
 	 * @returns {Promise<T>|Promise}
 	 */
 	public createUser(pushToken: string): Promise<string> {
-		let properties: { identifier: string, device_type: number } = {
+		const properties: { identifier: string, device_type: number } = {
 			identifier: pushToken,
 			device_type: this.deviceType
 		};
@@ -99,7 +99,6 @@ export class Users {
 				console.log(response.statusText);
 				console.log(response.headers.keys());
 				console.log(response.headers.values());
-
 
 				return response.headers.get('location');
 			})
