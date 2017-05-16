@@ -56,13 +56,18 @@ export class BandsConfiguratorComponent {
 		this.subscription.isValid = this.subscription.data.band.trim() !== '' && this.subscription.data.country.trim() !== '';
 	}
 
+	/**
+	 * Formats country into readable name
+	 * @param countryCode
+	 * @returns {any}
+	 */
 	private parseCountry(countryCode: string): string {
 		switch (countryCode) {
-			case 'de':
+			case 'Germany':
 				return 'Deutschland';
-			case 'ch':
+			case 'Switzerland':
 				return 'Schweiz';
-			case 'at':
+			case 'Austria':
 				return 'Österreich';
 		}
 	}
