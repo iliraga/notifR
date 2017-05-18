@@ -15,6 +15,7 @@ import {AboutPage} from "../pages/about/about";
 import {FootballConfiguratorComponent} from "../components/connectors/football-configurator/football-configurator";
 import {InboxPage} from "../pages/inbox/inbox";
 import {TvConfiguratorComponent} from "../components/connectors/tv-configurator/tv-configurator";
+import {WeatherConfigurationComponent} from "../components/connectors/weather-configuration/weather-configuration";
 
 @NgModule({
 	declarations: [
@@ -27,7 +28,8 @@ import {TvConfiguratorComponent} from "../components/connectors/tv-configurator/
 		InboxPage,
 		BandsConfiguratorComponent,
 		FootballConfiguratorComponent,
-		TvConfiguratorComponent
+		TvConfiguratorComponent,
+		WeatherConfigurationComponent
 	],
 	imports: [
 		IonicModule.forRoot(MyApp)
@@ -43,6 +45,7 @@ import {TvConfiguratorComponent} from "../components/connectors/tv-configurator/
 		BandsConfiguratorComponent,
 		FootballConfiguratorComponent,
 		TvConfiguratorComponent,
+		WeatherConfigurationComponent,
 		HomePage
 	],
 	providers: [
@@ -51,7 +54,7 @@ import {TvConfiguratorComponent} from "../components/connectors/tv-configurator/
 		Push,
 		Users,
 		NotificationService,
-		
+
 		{provide: ErrorHandler, useClass: IonicErrorHandler}]
 })
 export class AppModule {
