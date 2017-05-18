@@ -16,6 +16,9 @@
 						[subscription]="this.subscription"></bands-configurator>
 	<football-configurator *ngIf="this.subscription.connectorId === 'football'"
 						   [subscription]="this.subscription"></football-configurator>
+	<tv-configurator *ngIf="this.subscription.connectorId === 'tv'"
+					 [subscription]="this.subscription"></tv-configurator>
+
 
 	<button ion-button margin-bottom margin-top icon-left block large (click)="this.save()"
 			[disabled]="!this.subscription.isValid">

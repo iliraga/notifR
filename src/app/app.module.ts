@@ -14,6 +14,7 @@ import {NotificationService} from "../providers/notification-service";
 import {AboutPage} from "../pages/about/about";
 import {FootballConfiguratorComponent} from "../components/connectors/football-configurator/football-configurator";
 import {InboxPage} from "../pages/inbox/inbox";
+import {TvConfiguratorComponent} from "../components/connectors/tv-configurator/tv-configurator";
 
 @NgModule({
 	declarations: [
@@ -25,7 +26,8 @@ import {InboxPage} from "../pages/inbox/inbox";
 		SubscriptionsPage,
 		InboxPage,
 		BandsConfiguratorComponent,
-		FootballConfiguratorComponent
+		FootballConfiguratorComponent,
+		TvConfiguratorComponent
 	],
 	imports: [
 		IonicModule.forRoot(MyApp)
@@ -40,6 +42,7 @@ import {InboxPage} from "../pages/inbox/inbox";
 		ComposeSubscriptionPage,
 		BandsConfiguratorComponent,
 		FootballConfiguratorComponent,
+		TvConfiguratorComponent,
 		HomePage
 	],
 	providers: [

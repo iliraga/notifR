@@ -1,0 +1,35 @@
+<!--
+  Generated template for the BandsConfigurator component.
+
+  See https://angular.io/docs/ts/latest/api/core/index/ComponentMetadata-class.html
+  for more info on Angular 2 Components.
+-->
+<ion-list>
+	<ion-list-header>
+		TV
+	</ion-list-header>
+
+	<ion-item>
+		<ion-icon name="clock" item-left></ion-icon>
+		<ion-label>Heute um 20:15</ion-label>
+		<ion-toggle [(ngModel)]="this.twenty"></ion-toggle>
+	</ion-item>
+	<ion-item>
+		<ion-icon name="time" item-left></ion-icon>
+		<ion-label>Heute um 22:15</ion-label>
+		<ion-toggle [(ngModel)]="this.twentytwo"></ion-toggle>
+	</ion-item>
+	<ion-item>
+		<ion-icon name="desktop" item-left></ion-icon>
+		<ion-label>TV Tipps des Tages</ion-label>
+		<ion-toggle [(ngModel)]="this.tipps"></ion-toggle>
+	</ion-item>
+	<ion-item>
+		<ion-icon name="videocam" item-left></ion-icon>
+		<ion-label>Spielfilm-Highlights des Tages</ion-label>
+		<ion-toggle [(ngModel)]="this.highlights"></ion-toggle>
+	</ion-item>
+</ion-list>
+<p text-center>
+	Du wirst von mir mit den von dir gewählten TV-Tipps beliefert.
+</p>

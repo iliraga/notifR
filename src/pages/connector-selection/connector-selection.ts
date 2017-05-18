@@ -33,7 +33,7 @@ export class ConnectorSelectionPage {
 	 */
 	public connectorTapped(connector: IConnector): void {
 		let validConnectors: Array<string> = [
-			'bands', 'football'
+			'bands', 'football', 'tv'
 		];
 
 		if (validConnectors.indexOf(connector.id) === -1) return;
