@@ -1,6 +1,13 @@
 import {Component} from '@angular/core';
 import {ISubscription} from "../../../interfaces/subscription.interface";
 
+interface IFootballData {
+	team: string;
+	events: boolean;
+	goals: boolean;
+	result: boolean;
+}
+
 /*
  Generated class for the FootballConfigurator component.
 
@@ -36,26 +43,114 @@ export class FootballConfiguratorComponent {
 		console.log('Hello FootballConfigurator Component');
 	}
 
+	/**
+	 * Gets team name
+	 * @returns {string}
+	 */
 	public get team(): string {
 		return this.subscription.data.team;
 	}
 
+	/**
+	 * Sets team name
+	 * @param team
+	 */
 	public set team(team: string) {
 		this.subscription.data.team = team;
-		this.updateMessage();
-		this.checkValidity();
+		this.checkDirty();
 	}
 
+	/**
+	 * Subscribe to events?
+	 */
+	public get events(): boolean {
+		return this.subscription.data.events;
+	}
+
+	/**
+	 * Sets the subscribe events
+	 * @param enabled
+	 */
+	public set events(enabled: boolean) {
+		this.subscription.data.events = enabled;
+		this.checkDirty();
+	}
+
+	/**
+	 * Goals events
+	 * @returns {boolean}
+	 */
+	public get goals(): boolean {
+		return this.subscription.data.goals;
+	}
+
+	/**
+	 * Goals
+	 * @param enabled
+	 */
+	public set goals(enabled: boolean) {
+		this.subscription.data.goals = enabled;
+		this.checkDirty();
+	}
+
+	/**
+	 * Result
+	 */
+	public get result(): boolean {
+		return this.subscription.data.result;
+	}
+
+	/**
+	 * Resultate
+	 * @param enabled
+	 */
+	public set result(enabled: boolean) {
+		this.subscription.data.result = enabled;
+		this.checkDirty();
+	}
+
+	/**
+	 * Updates the message
+	 */
 	private updateMessage(): void {
 		this.subscription.caption = "Benachrichte mich für Team '" + this.subscription.data.team + "'";
 	}
 
-	public checkValidity(): void {
-		if (typeof this.subscription.data.team === 'undefined') {
-			this.subscription.isValid = false;
-			return;
-		}
+	/**
+	 * Checks validity of subscription
+	 */
+	private checkValidity(): void {
+		const data: IFootballData = this.subscription.data;
+		const countToggledFields: number = this.extractRawValues(data).filter((enabled: boolean) => enabled).length;
 
-		this.subscription.isValid = this.subscription.data.team.trim() !== '';
+		this.subscription.isValid = data.team.trim() !== '' && countToggledFields > 0
+	}
+
+	/**
+	 * Check whether subscription is dirty
+	 */
+	private checkDirty(): void {
+		this.updateMessage();
+		this.checkValidity();
+	}
+
+	/**
+	 * Extract raw properties
+	 * @param data
+	 * @returns {Array<boolean>}
+	 */
+	private extractRawValues(data: IFootballData): Array<boolean> {
+		/**
+		 * List of all Fields which must be checked
+		 * @type {[boolean,boolean,boolean,boolean]}
+		 */
+		const validationRules: Array<any> = [
+			data.events,
+			data.goals,
+			data.result
+		];
+
+		// go through each validation field and add it's value to another list
+		return validationRules.map((field: any) => typeof field === 'boolean' && field === true);
 	}
 }
