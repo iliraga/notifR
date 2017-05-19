@@ -131,13 +131,18 @@ export class TvConfiguratorComponent {
 	 * @returns {Array<boolean>}
 	 */
 	private extractRawValues(data: any): Array<boolean> {
-		const raw: Array<boolean> = [];
+		/**
+		 * List of all Fields which must be checked
+		 * @type {[boolean,boolean,boolean,boolean]}
+		 */
+		const validationRules: Array<any> = [
+			data.twenty,
+			data.twentytwo,
+			data.tipps,
+			data.highlights
+		];
 
-		raw.push(typeof data.twenty !== 'undefined' && data.twenty === true);
-		raw.push(typeof data.twentytwo !== 'undefined' && data.twenty === true);
-		raw.push(typeof data.tipps !== 'undefined' && data.twenty === true);
-		raw.push(typeof data.highlights !== 'undefined' && data.twenty === true);
-
-		return raw;
+		// go through each validation field and add it's value to another list
+		return validationRules.map((field: any) => typeof field !== 'undefined' && field === true);
 	}
 }
