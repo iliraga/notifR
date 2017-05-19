@@ -3,7 +3,6 @@ import {Http, Response, Headers} from '@angular/http';
 import 'rxjs/add/operator/map';
 import {ISubscription} from "../interfaces/subscription.interface";
 import {Subscription} from "../entities/subscription.entity";
-import {Observable} from "rxjs/Observable";
 import {Constants} from "../app/app.constants";
 import {Users} from "./users";
 
@@ -100,7 +99,9 @@ export class Subscriptions {
 
 				subscription.id = id;
 
-				this.subscriptions.push(subscription);
+				// insert into list of my subscriptions
+				// which is cached at this point
+				this.subscriptions.splice(0, 0, subscription);
 
 				return subscription;
 			})
