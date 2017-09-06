@@ -37,7 +37,7 @@ export class NotificationService {
 	private createPusher(): PushObject {
 		const options: PushOptions = {
 			android: {
-				senderID: '12345679'
+				senderID: 'not_used_rightnow'
 			},
 			ios: {
 				alert: 'true',
