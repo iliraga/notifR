@@ -1,5 +1,5 @@
 import {Component, ViewChild} from '@angular/core';
-import {Nav, Platform} from 'ionic-angular';
+import {Nav} from 'ionic-angular';
 import {StatusBar, Splashscreen} from 'ionic-native';
 
 import {Page1} from '../pages/page1/page1';
@@ -24,7 +24,7 @@ export class MyApp {
 	public rootPage: Component = SubscriptionsPage;
 	public pages: Array<INavigationPage>;
 
-	constructor(private platform: Platform) {
+	constructor() {
 		this.initializeApp();
 
 		// used for an example of ngFor and navigation
